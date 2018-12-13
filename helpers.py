@@ -2,7 +2,7 @@ import html
 import os
 import plotly
 import socket
-
+import json
 from twython import Twython
 from twython import TwythonAuthError, TwythonError, TwythonRateLimitError
 
@@ -57,10 +57,32 @@ def get_user_timeline(screen_name, count=200):
         if user[0]["protected"]:
             return None
         tweets = twitter.get_user_timeline(screen_name=screen_name, count=count)
-        return [html.unescape(tweet["text"].replace("\n", " ")) for tweet in tweets]
+
+        tweets = _format_tweets(tuple(tweets))
+
+        # print(json.dumps(tweets, indent=2))
+
+        return tweets
     except TwythonAuthError as e:
         raise RuntimeError("invalid API_KEY and/or API_SECRET") from None
     except TwythonRateLimitError:
         raise RuntimeError("you've hit a rate limit") from None
     except TwythonError:
         return None
+
+
+def _format_tweets(tweets):
+    tweet_return = []
+
+    for tweet in tweets:
+        tweet_dict = {
+            'text': html.unescape(tweet["text"].replace("\n", " ")),
+            'created_at': tweet['created_at'],
+            'coordinates': tweet['coordinates'],
+            'id': tweet['id'],
+            'lang': tweet['lang']
+        }
+
+        tweet_return.append(tweet_dict)
+
+    return tweet_return

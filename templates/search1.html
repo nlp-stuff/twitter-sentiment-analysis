@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+{% block subtext %}
+@{{ screen_name }}
+{% endblock %}
+
+{% block body %}
+
+<table class="table table-hover table-bordered">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Tweet Text</th>
+      <th scope="col">Created At</th>
+      <th scope="col">Language</th>
+    </tr>
+  </thead>
+  <tbody>
+
+  	{% for tweet in tweets %}
+    <tr>
+      <th scope="row">{{ tweet['id'] }}</th>
+      <td>{{ tweet['text'] }}</td>
+      <td>{{ tweet['created_at'] }}</td>
+      <td>{{ tweet['lang'] }}</td>
+    </tr>
+    {% endfor %}
+
+  </tbody>
+</table>
+
+{% endblock %}

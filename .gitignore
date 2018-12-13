@@ -1,0 +1,3 @@
+delete_all_tweets.py
+*.sh
+__pycache__
