@@ -1,5 +1,7 @@
 import nltk
 from nltk.tokenize import TweetTokenizer
+from textblob import TextBlob
+
 
 class Analyzer():
     """Implements sentiment analysis."""
@@ -41,3 +43,14 @@ class Analyzer():
         # return the total sentiment score for the given tweet
         return score
         
+
+def stupid_analyzer(text):
+    testimonial = TextBlob(text)
+    
+    polarity = testimonial.sentiment.polarity
+    subjectivity = testimonial.sentiment.subjectivity
+
+    return {
+        'polarity': polarity,
+        'subjectivity': subjectivity
+    }

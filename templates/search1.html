@@ -13,6 +13,8 @@
       <th scope="col">Tweet Text</th>
       <th scope="col">Created At</th>
       <th scope="col">Language</th>
+      <th scope="col">Polarity</th>
+      <th scope="col">Subjectivity</th>
     </tr>
   </thead>
   <tbody>
@@ -23,6 +25,8 @@
       <td>{{ tweet['text'] }}</td>
       <td>{{ tweet['created_at'] }}</td>
       <td>{{ tweet['lang'] }}</td>
+      <td>{{ tweet['polarity'] }}</td>
+      <td>{{ tweet['subjectivity'] }}</td>
     </tr>
     {% endfor %}
 

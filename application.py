@@ -2,7 +2,7 @@ from flask import Flask, redirect, render_template, request, url_for
 
 import helpers
 import os, sys
-from analyzer import Analyzer
+from analyzer import Analyzer, stupid_analyzer
 
 
 app = Flask(__name__)
@@ -26,29 +26,10 @@ def search():
     if tweets == None:
         return redirect(url_for("index"))
     
-    # load absolute path of word lists
-    # positives = os.path.join(sys.path[0], "positive-words.txt")
-    # negatives = os.path.join(sys.path[0], "negative-words.txt")
-    
-    # instantiate analyzer
-    # analyzer = Analyzer(positives, negatives)
-    # positive, negative, neutral = 0.0, 0.0, 0.0
-    
-    # for tweet in tweets:
-    #     score = analyzer.analyze(tweet)
-        
-    #     if score > 0.0:
-    #         positive += 1.0
-    #     elif score < 0.0:
-    #         negative += 1.0
-    #     else:
-    #         neutral += 1.0
+    for tweet in tweets:
+        tweet.update(stupid_analyzer(tweet['text']))
 
-    # # generate chart
-    # chart = helpers.chart(positive, negative, neutral)
 
-    # render results
-    # return render_template("search1.html", chart=chart, screen_name=screen_name)
     return render_template("search1.html", tweets=tweets, screen_name=screen_name)
 
 
